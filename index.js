@@ -1,5 +1,6 @@
 import bodyParser from "body-parser";
 import express from "express";
+import startJobs from './src/jobs/InvoiceJobs.js';
 
 const app = express();
 app.use(bodyParser.json());
@@ -11,6 +12,8 @@ app.get("/health", (request, response) => {
     })
 })
 
+// cron job for send data to startbank
+startJobs();
 
 const webhookPort = process.env.PORT || 9444;
 app.listen(webhookPort, () => {
