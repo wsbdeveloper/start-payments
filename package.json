@@ -1,6 +1,7 @@
 {
   "name": "start-coding",
   "version": "1.0.0",
+  "type": "module",
   "description": "Startbank",
   "main": "index.js",
   "scripts": {
