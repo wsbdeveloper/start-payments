@@ -1,4 +1,6 @@
+import { randomUUID } from "crypto";
 import starkbank from "starkbank";
+import logger from "winston";
 
 // Setup for SDK startbank
 starkbank.user = new starkbank.Project({
@@ -19,6 +21,33 @@ function getRandomCpf() {
     ];
     // return with random in index on array by indexs.
     return cpfs[Math.floor(Math.random() * cpfs.length)];
+}
+
+// function for send to startbank
+async function inssueRandomInvoices() {
+    // generate number count between 8 or 12
+    const invoiceCount = Math.floor(Math.random() * 5) + 8;
+
+    // amount random 1000-1119
+    const amount = Math.floor(Math.random() * 120) + 1000
+
+    // generate array for length
+    const invoices = Array.from({ length: count }).map(() => ({
+        amount,
+        taxId: getRandomCpf(),
+        name: "Fulano Aleatorio",
+        due: new Date().toISOString(),
+        externalId: randomUUID(),
+        tags: ["dev-challenge"]
+    }));
+
+
+    // CREATE
+    try {
+
+    } catch (error) {
+        logger
+    }
 }
 
 
