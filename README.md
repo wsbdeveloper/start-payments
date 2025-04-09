@@ -6,7 +6,7 @@ Backend position
 
 ```bash
 # express for api framework
-# startbank sdk
+# starkbank sdk
 # dotend env vars
 # node-cron for schedules requesting for processing data
 # body parser for utils to framework

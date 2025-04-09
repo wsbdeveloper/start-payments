@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 // routers
 app.get("/health", (request, response) => {
     response.status(200).json({
-        message: "Service Webhook Startbank is running!"
+        message: "Service Webhook Starkbank is running!"
     })
 })
 
@@ -18,7 +18,7 @@ app.get("/health", (request, response) => {
  * */
 app.post("/webhook", handlerWebhook);
 
-// cron job for send data to startbank
+// cron job for send data to starkbank
 startJobs();
 
 const webhookPort = process.env.PORT || 9444;

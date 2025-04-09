@@ -2,11 +2,11 @@ import { randomUUID } from "crypto";
 import starkbank from "starkbank";
 import logger from "winston";
 
-// Setup for SDK startbank
+// Setup for SDK starkbank
 starkbank.user = new starkbank.Project({
     // env webhook service
     environment: process.env.ENVIRONMENT,
-    // ID the project in platform StartBank
+    // ID the project in platform StarkBank
     id: process.env.PROJECT_ID,
     // Key with parser the string
     privateKey: process.env.PRIVATE_KEY.replace(/\\n/g, "\n"),
@@ -23,7 +23,7 @@ function getRandomCpf() {
     return cpfs[Math.floor(Math.random() * cpfs.length)];
 }
 
-// function for send to startbank
+// function for send to starkbank
 async function inssueRandomInvoices() {
     // generate number count between 8 or 12
     const invoiceCount = Math.floor(Math.random() * 5) + 8;
@@ -47,7 +47,7 @@ async function inssueRandomInvoices() {
     try {
         await starkbank.Invoice.create(invoices);
     } catch (error) {
-        logger.error("Error create invoices StartBank")
+        logger.error("Error create invoices StarkBank")
     }
 }
 
