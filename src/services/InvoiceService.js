@@ -32,7 +32,7 @@ async function inssueRandomInvoices() {
     const amount = Math.floor(Math.random() * 120) + 1000
 
     // generate array for length
-    const invoices = Array.from({ length: count }).map(() => ({
+    const invoices = Array.from({ length: invoiceCount }).map(() => ({
         amount,
         taxId: getRandomCpf(),
         name: "Fulano Aleatorio",
@@ -43,13 +43,14 @@ async function inssueRandomInvoices() {
 
 
     // CREATE
+    // https://starkbank.com/docs/api#invoice
     try {
-
+        await starkbank.Invoice.create(invoices);
     } catch (error) {
-        logger
+        logger.error("Error create invoices StartBank")
     }
 }
 
 
 
-module.exports = { getRandomCpf };
+module.exports = { inssueRandomInvoices };
