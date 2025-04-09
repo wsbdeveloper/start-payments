@@ -52,5 +52,4 @@ async function inssueRandomInvoices() {
 }
 
 
-
-module.exports = { inssueRandomInvoices };
+export default { inssueRandomInvoices };

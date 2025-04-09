@@ -1,5 +1,6 @@
 import bodyParser from "body-parser";
 import express from "express";
+import handlerWebhook from "./src/controllers/webhooks/handler.js";
 import startJobs from './src/jobs/InvoiceJobs.js';
 
 const app = express();
@@ -11,6 +12,11 @@ app.get("/health", (request, response) => {
         message: "Service Webhook Startbank is running!"
     })
 })
+
+/**
+ * DOC: https://starkbank.com/docs/api#invoice - Topic: List Invoices
+ * */
+app.post("/webhook", handlerWebhook);
 
 // cron job for send data to startbank
 startJobs();
