@@ -1,7 +1,7 @@
-import bodyParser from "body-parser";
-import express from "express";
-import handlerWebhook from "./src/controllers/webhooks/handler.js";
-import startJobs from './src/jobs/InvoiceJobs.js';
+const bodyParser = require("body-parser");
+const express = require("express");
+const handlerWebhook = require("./src/controllers/webhooks/handler.js");
+const startJobs = require('./src/jobs/InvoiceJobs.js');
 
 const app = express();
 app.use(bodyParser.json());

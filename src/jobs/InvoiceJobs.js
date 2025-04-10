@@ -1,7 +1,7 @@
-import cron from "node-cron";
-import logger from "winston";
+const cron = require("node-cron");
+const logger = require("winston");
 
-import { inssueRandomInvoices } from "../services/InvoiceService.js";
+const inssueRandomInvoices = require("../services/InvoiceService.js");
 
 function startJobs() {
     const sendInvoicesJob = cron.schedule("* * * * *", async () => {
@@ -15,4 +15,4 @@ function startJobs() {
     }
 }
 
-export default startJobs;
+module.exports = startJobs;

@@ -1,30 +1,12 @@
-import { randomUUID } from "crypto";
-import starkbank from "starkbank";
-import logger from "winston";
+const { randomUUID } = require("crypto");
+const starkbank =  require("starkbank");
+const logger = require("winston");
+const authStarkBank = require("./AuthStarkBank");
 
-// Setup for SDK starkbank
-starkbank.user = new starkbank.Project({
-    // env webhook service
-    environment: process.env.ENVIRONMENT,
-    // ID the project in platform StarkBank
-    id: process.env.PROJECT_ID,
-    // Key with parser the string
-    privateKey: process.env.PRIVATE_KEY.replace(/\\n/g, "\n"),
-});
-
-// função for get cpfs random.
-function getRandomCpf() {
-    const cpfs = [
-        "421.422.423-42",
-        "111.222.333-00",
-        "999.888.777-10"
-    ];
-    // return with random in index on array by indexs.
-    return cpfs[Math.floor(Math.random() * cpfs.length)];
-}
+const { getRandomCpf } = require("./utils");
 
 // function for send to starkbank
-async function inssueRandomInvoices() {
+async function inssueRandomInvoices() {    
     // generate number count between 8 or 12
     const invoiceCount = Math.floor(Math.random() * 5) + 8;
 
@@ -38,18 +20,18 @@ async function inssueRandomInvoices() {
         name: "Fulano Aleatorio",
         due: new Date().toISOString(),
         externalId: randomUUID(),
-        tags: ["dev-challenge"]
+        tags: ["dev-test-challanger-backend"]
     }));
 
 
     // CREATE
     // https://starkbank.com/docs/api#invoice
     try {
-        await starkbank.Invoice.create(invoices);
+        return await starkbank.Invoice.create(invoices);
     } catch (error) {
-        logger.error("Error create invoices StarkBank")
+        throw Error("Error create invoices StarkBank");
     }
 }
 
 
-export default { inssueRandomInvoices };
+module.exports = inssueRandomInvoices;

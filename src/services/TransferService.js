@@ -1,5 +1,5 @@
-import starkbank from "starkbank";
-import logger from "winston";
+const starkbank = require("starkbank");
+const logger = require("winston");
 
 // Transfer to Starkbank the values.
 
@@ -19,11 +19,11 @@ async function sendToBank(amount) {
     }];
 
     try {
-        const evaluate = await starkbank.Transfer.create(transfer);
+        const evaluate = await starkbank.Transfer.create(transfer); 
         logger.info(`Tranfer send to StarkBank ${evaluate[0].id}`)
     } catch (error) {
         logger.error("Error to send for StarkBank the values process without taxes!" + error.message);
     }
 }
 
-export default sendToBank;
+module.exports = sendToBank;
