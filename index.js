@@ -4,10 +4,6 @@ const dotenv = require("dotenv");
 const handlerWebhook = require("./src/controllers/webhooks/handler.js");
 const startJobs = require('./src/jobs/InvoiceJobs.js');
 
-
-(async () => {
-    await require("./src/services/InvoiceService")();
-})();
 const app = express();
 app.use(bodyParser.json());
 dotenv.config({ path: ".env"});

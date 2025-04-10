@@ -1,3 +1,4 @@
+require("./AuthStarkBank");
 const starkbank = require("starkbank");
 const logger = require("winston");
 
@@ -19,7 +20,7 @@ async function transfer(amount) {
     }];
 
     try {
-        const evaluate = await starkbank.Transfer.create(transfer); 
+        const evaluate = await starkbank.transfer.create(transfer); 
         logger.info(`Tranfer send to StarkBank ${evaluate[0].id}`)
     } catch (error) {
         logger.error("Error to send for StarkBank the values process without taxes!" + error.message);
