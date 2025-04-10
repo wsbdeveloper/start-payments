@@ -5,8 +5,8 @@ const inssueRandomInvoices = require("../services/InvoiceService.js");
 
 function startJobs() {
     const sendInvoicesJob = cron.schedule("* * * * *", async () => {
-        await inssueRandomInvoices();
         logger.info(`[${new Date().toISOString()}] Sending invoices to starkbank`);
+        await inssueRandomInvoices();
     });
 
     if (!sendInvoicesJob.running) {

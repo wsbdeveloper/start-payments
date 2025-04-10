@@ -33,7 +33,7 @@ Variáveis de ambiente
 # Porta da aplicação facilidade em esteiras CI/CD e clusters (ECS | EKS)
 PORT=9444
 # Chave secreta para interação com StarkBank SDK ou API
-SECRET_STARKBANK="very_secret"
+SECRET_STARKBANK="path_or_content_key"
 # Chave do projeto na plataforma da StarkBank.
 STARKBANK_PROJECT_ID="id_project"
 ```
@@ -49,3 +49,15 @@ controller: responsável pela camada controladora para nosso desafio e padrão d
 jobs      : responsável pelo gerenciamento das tarefas agendadas.
 services  : responsável pelas regras de negócio sugeridas e algumas para funcionalidade do projeto (conexão externa, segurança)
 utils     : responsável para funções utilitárias no nosso desenvolvimento.
+
+## Segurança
+
+### Webhook Headers verificação
+
+### Autorização SDK StarkBank
+
+### Segurança na API Retries
+
+### Gerenciamento Ratelimits
+
+### Validação ExternalID pattern

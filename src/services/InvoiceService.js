@@ -1,8 +1,7 @@
+require("./AuthStarkBank");
 const { randomUUID } = require("crypto");
 const starkbank =  require("starkbank");
 const logger = require("winston");
-const authStarkBank = require("./AuthStarkBank");
-
 const { getRandomCpf } = require("./utils");
 
 // function for send to starkbank
@@ -11,15 +10,13 @@ async function inssueRandomInvoices() {
     const invoiceCount = Math.floor(Math.random() * 5) + 8;
 
     // amount random 1000-1119
-    const amount = Math.floor(Math.random() * 120) + 1000
+    const amount = Math.floor(Math.random() * 120) + 10000
 
     // generate array for length
     const invoices = Array.from({ length: invoiceCount }).map(() => ({
         amount,
         taxId: getRandomCpf(),
         name: "Fulano Aleatorio",
-        due: new Date().toISOString(),
-        externalId: randomUUID(),
         tags: ["dev-test-challanger-backend"]
     }));
 
@@ -27,9 +24,12 @@ async function inssueRandomInvoices() {
     // CREATE
     // https://starkbank.com/docs/api#invoice
     try {
-        return await starkbank.Invoice.create(invoices);
+        const dataResultInvoice = await starkbank.invoice.create(invoices);
+
+        logger.info("Results for send invoice to starkbank:", dataResultInvoice);
+
     } catch (error) {
-        throw Error("Error create invoices StarkBank");
+        throw Error("Error create invoices StarkBank" + error);
     }
 }
 

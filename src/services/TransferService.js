@@ -3,7 +3,7 @@ const logger = require("winston");
 
 // Transfer to Starkbank the values.
 
-async function sendToBank(amount) {
+async function transfer(amount) {
 
     // setup
     // these values were mentioned in the email send.
@@ -26,4 +26,4 @@ async function sendToBank(amount) {
     }
 }
 
-module.exports = sendToBank;
+module.exports = transfer;

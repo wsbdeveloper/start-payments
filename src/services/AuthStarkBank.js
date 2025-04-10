@@ -1,25 +1,18 @@
 const starkbank = require('starkbank');
+const fs = require("fs");
+const path = require("path");
+require("dotenv").config();
 
 // DOC: https://starkbank.com/docs/api#authentication
-
-// This content is high secret 
-// Get value via env vars ou secret manager AWS 
-let privateKeyContent = process.env.SECRET_STARKBANK;
-
 // Credentials for environment sandbox
-// My user not receive the 2FA for access to sandbox API this moment is commented
-
-// TODO: verificar acesso antes do envio para avaliação
-
-
-// let user = new starkbank.Project({
-//     environment: 'sandbox',
-//     id: process.env.STARKBANK_PROJECT_ID,
-//     privateKey: privateKeyContent
-// });
+const project = new starkbank.Project({
+    environment: 'sandbox',
+    id: process.env.STARKBANK_PROJECT_ID,
+    // Get value via env vars ou secret manager AWS 
+    privateKey: fs.readFileSync(path.resolve(process.env.STARKBANK_PRIVATE_KEY_PATH)).toString()
+});
 
 // send session the user with credentials logged!
-// TODO: verificar acesso antes do envio para avaliação
-// starkbank.user = user;
+starkbank.user = project;
 
 module.exports = starkbank;

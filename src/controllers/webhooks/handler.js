@@ -1,11 +1,18 @@
 const logger = require("winston");
-
+const transferService = require("./../../services/TransferService");
 /**
  * DOC: https://starkbank.com/docs/api#invoice - Topic: List Invoices
  * */
+
 async function handlerWebhook(request, response) {
+    //header starkbank send
+    const headers = request.headers;
+
+    logger.info("HEADERS: " + headers);
+
     const event = request.body;
 
+    // Authtoken for receive webhook safe in transaction
     if (event.subscription === "invoice" && event.log.type === "credited") {
         const invoice = event.log.invoice;
         logger.info(`Invoice paid: ${invoice.id}`);
@@ -17,7 +24,7 @@ async function handlerWebhook(request, response) {
         // calc send value without taxes
         const netAmount = amount - fee;
 
-        await transferService.sendToStarkBank(netAmount);
+        await transferService(netAmount);
     }
 
     
