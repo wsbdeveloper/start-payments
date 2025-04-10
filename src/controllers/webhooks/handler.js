@@ -1,34 +1,48 @@
 const logger = require("winston");
+const starkbank = require("starkbank");
+const fs = require("fs");
 const transferService = require("./../../services/TransferService");
+const auth = require("./../../services/AuthStarkBank");
 /**
  * DOC: https://starkbank.com/docs/api#invoice - Topic: List Invoices
  * */
 
+const starkbankPublicKey = fs.readFileSync("publicKey.pem").toString();
+
 async function handlerWebhook(request, response) {
-    //header starkbank send
-    const headers = request.headers;
+    // security
+    const signature = request.headers["digital-signature"];
 
-    logger.info("HEADERS: " + headers);
-
-    const event = request.body;
-
-    // Authtoken for receive webhook safe in transaction
-    if (event.subscription === "invoice" && event.log.type === "credited") {
-        const invoice = event.log.invoice;
-        logger.info(`Invoice paid: ${invoice.id}`);
-
-        // amount received the webhook 
-        const amount = invoice.amount;
-        // amount received the webhook
-        const fee = invoice.fee;
-        // calc send value without taxes
-        const netAmount = amount - fee;
-
-        await transferService(netAmount);
+    if (!signature) {
+        logger.warn("Missing signature header");
+        return response.status(400).json({ error: "Missing signature header" });
     }
+    try {
+        const parsedEvent = await starkbank.event.parse({ content: request.body.toString(), signature });
 
-    
-    response.status(200).json({ eventState: "Process: Invoice and Credited"});
+        const subscription = parsedEvent.event.subscription;
+        const invoiceRequest = parsedEvent.event.log.type;
+
+        // Authtoken for receive webhook safe in transaction
+        if (subscription === "invoice" && invoiceRequest === "created") {
+            const invoice = parsedEvent.event.log.invoice;
+            logger.info(`Invoice paid: ${invoice.id}`);
+
+            // amount received the webhook 
+            const amount = invoice.amount;
+            // amount received the webhook
+            const fee = invoice.fee;
+            // calc send value without taxes
+            const netAmount = amount - fee;
+
+            await transferService(netAmount);
+        }
+
+
+        return response.status(200).json({ eventState: "Process: Invoice and Credited" });
+    } catch (error) {
+        return res.status(400).json({ error: "Invalid signature or body" });
+    }
 }
 
 module.exports = handlerWebhook;

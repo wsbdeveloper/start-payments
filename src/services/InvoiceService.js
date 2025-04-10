@@ -1,5 +1,4 @@
 require("./AuthStarkBank");
-const { randomUUID } = require("crypto");
 const starkbank =  require("starkbank");
 const logger = require("winston");
 const { getRandomCpf } = require("./utils");
@@ -10,10 +9,7 @@ async function inssueRandomInvoices() {
     const invoiceCount = Math.floor(Math.random() * 5) + 8;
 
     // amount random gen
-    // I was set value with 10000 and in platform result in R$ 10,33
-    // I was set value with 100000 and in platform result in R$ 100,33
-    // I was set value with 1000000 and in platform result in R$ 1000,33
-    const amount = Math.floor(Math.random() * 120) + 1000000
+    const amount = Math.floor(Math.random() * (5000 - 100 + 1)) + 100;
 
     // generate array for length
     const invoices = Array.from({ length: invoiceCount }).map(() => ({

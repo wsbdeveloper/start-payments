@@ -50,14 +50,46 @@ jobs      : responsável pelo gerenciamento das tarefas agendadas.
 services  : responsável pelas regras de negócio sugeridas e algumas para funcionalidade do projeto (conexão externa, segurança)
 utils     : responsável para funções utilitárias no nosso desenvolvimento.
 
+## Goals
+
+Evidências das funcionalidades sugeridas:
+
+Invoices
+
+![Envio dos Invoices para plataforma Sandbox](docs/invoices_created_plataforma.png)
+
+Transfers
+
+![Envio dos Transfers para plataforma Sandbox](docs/starkbank_transfers.png)
+
+Ngrok para ambiente simulado localmente
+
+![Logs ngrok localmente](docs/starkbank_ngrok.png)
+
 ## Segurança
+
+Este projeto implementa a verificação de assinaturas digitais recebidas via Webhook da StarkBank, garantindo a integridade e autenticidade dos eventos.
+
+Utiliza o método starkbank.event.parse() para validar a assinatura usando a chave pública da StarkBank.
+
+O corpo da requisição é processado em formato bruto (express.raw) para garantir que a assinatura não seja invalidada por modificações.
+
+Apenas eventos do tipo invoice.credited são processados.
+
+A chave pública da StarkBank deve ser salva localmente pra fins do teste mas em ambiente real seria em um serviço como AWS SECRET MANAGER.
 
 ### Webhook Headers verificação
 
+Dentro do retorno da API implementei uma verificação da origem dos dados, garantir que o webhook seja da StakBank e seja válido com a autenticação usando o SDK da empresa.
+
 ### Autorização SDK StarkBank
+
+Implementado também a autorização da sessão dentro do SDK : <https://starkbank.com/docs/api#authentication>
+Em AuthStarkBank.js realizei a implementação para interação com API caso necessário.
 
 ### Segurança na API Retries
 
-### Gerenciamento Ratelimits
+Realizando alguns testes a propria SDK e plataforma do StarkBank utilizam uma propriedade contra retries.
+Nesse exemplo que estou enviando até o momento não tem tratamento por um database que controlaria esse retries com mecanismos de idêmpotencia nos envios.
 
-### Validação ExternalID pattern
+### Gerenciamento Ratelimits
