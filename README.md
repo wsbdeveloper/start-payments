@@ -66,6 +66,8 @@ As chaves foram carregadas no git apenas para nível de avaliação:
 
 Utilizei uma forma simples e objetiva para realização do teste, as pastas criadas são separadas por responsabilidade e forma de programação foi mais objetiva no sentido de funções com única responsabilidade contribuindo para siplicidade das ações a serem realizadas. Contudo abordando as principais funcionalidades do desafio.
 
+Aplicações que
+
 Explicação modelagem dos arquivos
 
 src       : source padrão de mercado e padronização do código fonte.
@@ -163,8 +165,3 @@ Build
 Running
 
 ![Imagem docker running](docs/docker_running.png)
-
-## Apresentação
-
-breve visão minha
-Meus contatos
