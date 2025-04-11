@@ -1,4 +1,4 @@
-const logger = require("winston");
+const logger = require("../../utils/loggers");
 const starkbank = require("starkbank");
 const fs = require("fs");
 const transferService = require("./../../services/TransferService");

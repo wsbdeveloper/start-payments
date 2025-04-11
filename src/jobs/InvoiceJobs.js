@@ -1,7 +1,7 @@
 const cron = require("node-cron");
-const logger = require("winston");
+const logger = require("../utils/loggers.js");
 
-const inssueRandomInvoices = require("../services/InvoiceService.js");
+const { inssueRandomInvoices } = require("../services/InvoiceService.js");
 
 function startJobs() {
     // set interval 3 hours

@@ -1,6 +1,6 @@
 require("./AuthStarkBank");
 const starkbank =  require("starkbank");
-const logger = require("winston");
+const logger = require("../utils/loggers.js");
 const { getRandomCpf } = require("./utils");
 
 // function for send to starkbank
@@ -26,11 +26,11 @@ async function inssueRandomInvoices() {
         const dataResultInvoice = await starkbank.invoice.create(invoices);
 
         logger.info("Results for send invoice to starkbank:", dataResultInvoice.id);
-
+        return dataResultInvoice;
     } catch (error) {
-        throw Error("Error create invoices StarkBank" + error);
+        throw Error("Error create invoices StarkBank");
     }
 }
 
 
-module.exports = inssueRandomInvoices;
+module.exports = {inssueRandomInvoices};

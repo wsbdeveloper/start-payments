@@ -4,6 +4,13 @@ const { Project, event } = require("starkbank");
 const starkbank = require("starkbank");
 
 
+jest.mock("../../../src/services/TransferService.js", () => jest.fn().mockImplementation(() => {
+    return {
+        status: jest.fn().mockReturnThis(200),
+        json: jest.fn().mockReturnThis({ eventState: "Process: Invoice and Credited" })
+    }
+}));
+
 jest.mock("starkbank", () => ({
     Project: jest.fn().mockImplementation(() => ({
         id: "mock-project-id"
@@ -54,6 +61,23 @@ describe("Test handlerWebhook controller", () => {
         await handlerWebhook(req, res);
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({ error: "Invalid signature or body" });
+    });
+
+    it("Should call transferService and return 200 status code", async () => {
+        starkbank.event.parse.mockResolvedValue({
+            event: {
+                subscription: "invoice",
+                log: {
+                    type: "created",
+                    invoice: { id: "123", amount: 1000, fee: 100 }
+                }
+            }
+        });
+
+        await handlerWebhook(req, res);
+        expect(transferService).toHaveBeenCalledWith(900);
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith({ eventState: "Process: Invoice and Credited" });
     });
 
 })

@@ -1,6 +1,6 @@
 require("./AuthStarkBank");
 const starkbank = require("starkbank");
-const logger = require("winston");
+const logger = require("../utils/loggers.js");
 
 // Transfer to Starkbank the values.
 
