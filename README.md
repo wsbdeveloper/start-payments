@@ -93,3 +93,19 @@ Realizando alguns testes a propria SDK e plataforma do StarkBank utilizam uma pr
 Nesse exemplo que estou enviando até o momento não tem tratamento por um database que controlaria esse retries com mecanismos de idêmpotencia nos envios.
 
 ### Gerenciamento Ratelimits
+
+Rate Limits - Avaliar limites de requisição por um tempo determinado pela equipe. Isso é muito útil para prevenir ataques de DDOS (negação de serviço) e controle de acesso por origem aos nossos recursos.
+
+## Infra - Cloud
+
+Atribui algumas documentações sobre a disponibilização do nosso novo serviço em ambiente de cloud (AWS) tenho experiências atuando com AWS fiz um diagrama simplificado para avaliação.
+
+![Diagrama simplificado para o teste](docs/stark_resume_minimal_ideal.drawio.png)
+
+Recursos como:
+
+- Fargate: Recurso auto gerenciado pela AWS nos ajuda para disponibilização dos nossos serviços com alta capacidade de disponibilidade.
+- Secret Manager: Usado para gerenciamento de dados sensíveis como chaves para API e configurações sensíveis como acesso a banco de dados.
+- Certificate Manager: Para gerenciar nossas chaves.
+- ECS ou EKS: Recursos de clusterização com máquinas ou serviços no caso de EKS. Nos ajuda a ter um ambiente de alta disponibilidade, auto scalling e controle de degradação do ambiente.
+- WAF: Muito utilizado como Firewall das nossas aplicações web, controle de acessos e segurança.
