@@ -2,6 +2,25 @@
 
 ## Desafio backend - Sênior
 
+## Apresentação
+
+Sou Wellington Da Silva Bezerra, engenheiro de software com foco em desenvolvimento backend, infraestrutura e arquitetura de sistemas. Tenho experiência sólida com tecnologias como Java, Node.js, Python, além de práticas DevSecOps, monitoramento e integração de sistemas críticos.
+
+Meu trabalho se destaca pela clareza na organização do código, atenção à segurança e busca por soluções simples para problemas complexos. Este projeto reflete minha experiência em integração com APIs externas (como StarkBank), validação segura de webhooks, agendamentos automáticos e deploy seguro em ambientes cloud.
+
+### Contato
+
+- Email: <wellingtons.bezerra@hotmail.com>
+- Telefone: (11) 99001-3439
+- LinkedIn: [linkedin.com/in/wellington-bezerra-dev](https://linkedin.com/in/wellington-bezerra-dev)
+
+Fico a disposição para esclarecer qualquer dúvida que surgir
+
+Próximos passos que pretendia realizar:
+
+- Conceitos de CI/CD automatizados como deploy da imagem via GitHub Actions
+- Infra as a code com terraform
+
 Vamos iniciar com o setup da aplicação pela descrição sugerida no desafio. Criar uma aplicação que receba resultados enviados pela StarkBank via webhook e um cenário ficticio de envios a cada 3 horas para processamento de dados.
 
 ## setup
@@ -37,6 +56,11 @@ SECRET_STARKBANK="path_or_content_key"
 # Chave do projeto na plataforma da StarkBank.
 STARKBANK_PROJECT_ID="id_project"
 ```
+
+## ⚠️ Atenção
+
+As chaves foram carregadas no git apenas para nível de avaliação:
+ `privateKey.pem` e `publicKey.pem` como menciono em algumas praticas na AWS essas chaves devem ser extramamente restritas.
 
 ## Modelagem do projeto
 
@@ -109,3 +133,38 @@ Recursos como:
 - Certificate Manager: Para gerenciar nossas chaves.
 - ECS ou EKS: Recursos de clusterização com máquinas ou serviços no caso de EKS. Nos ajuda a ter um ambiente de alta disponibilidade, auto scalling e controle de degradação do ambiente.
 - WAF: Muito utilizado como Firewall das nossas aplicações web, controle de acessos e segurança.
+
+## Docker
+
+Configuração de container para aplicação.
+
+```bash
+# Build imagem
+docker build -t starkbak .
+
+
+# Executar aplicação powershell (compatibilidade com path)
+docker run -it `
+   -p 9444:9444 `
+   -v "${PWD}\privateKey.pem:/app/privateKey.pem" `
+   -v "${PWD}\publicKey.pem:/app/publicKey.pem" `
+   -e STARKBANK_PROJECT_ID="6251691410194432" `
+   -e STARKBANK_PRIVATE_KEY_PATH="privateKey.pem" `
+   --name starkbank.v2 `
+   starkbank
+```
+
+### Construção e Execução da imagem
+
+Build
+
+![Imagem docker build](docs/docker_building.png)
+
+Running
+
+![Imagem docker running](docs/docker_running.png)
+
+## Apresentação
+
+breve visão minha
+Meus contatos
