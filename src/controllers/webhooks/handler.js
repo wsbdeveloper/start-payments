@@ -7,8 +7,6 @@ const auth = require("./../../services/AuthStarkBank");
  * DOC: https://starkbank.com/docs/api#invoice - Topic: List Invoices
  * */
 
-const starkbankPublicKey = fs.readFileSync("publicKey.pem").toString();
-
 async function handlerWebhook(request, response) {
     // security
     const signature = request.headers["digital-signature"];
@@ -41,7 +39,7 @@ async function handlerWebhook(request, response) {
 
         return response.status(200).json({ eventState: "Process: Invoice and Credited" });
     } catch (error) {
-        return res.status(400).json({ error: "Invalid signature or body" });
+        return response.status(400).json({ error: "Invalid signature or body" });
     }
 }
 

@@ -3,7 +3,7 @@ const inssueRandomInvoices = require("../../../src/services/InvoiceService.js");
 const starkbank = require("starkbank");
 const utils = require("../../../src/services/utils.js");
 
-// Mocka funções externas
+// Mock function external library
 jest.mock("starkbank", () => ({
     Invoice: {
         create: jest.fn()
