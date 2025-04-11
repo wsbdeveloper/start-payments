@@ -4,7 +4,7 @@
 
 ## Apresentação
 
-Sou Wellington Da Silva Bezerra, engenheiro de software com foco em desenvolvimento backend, infraestrutura e arquitetura de sistemas. Tenho experiência sólida com tecnologias como Java, Node.js, Python, além de práticas DevSecOps, monitoramento e integração de sistemas críticos.
+Sou Wellington Da Silva Bezerra, engenheiro de software com foco em desenvolvimento backend, infraestrutura e arquitetura de sistemas. Tenho experiência sólida com tecnologias como Java, Node.js, Python, além de práticas DevSecOps, monitoramento e integração de sistemas críticos e com experiências no mercado financeiro como CIP (Núclea), Magalu pay (Pix), C6bak, XP e Itaú Unibanco.
 
 Meu trabalho se destaca pela clareza na organização do código, atenção à segurança e busca por soluções simples para problemas complexos. Este projeto reflete minha experiência em integração com APIs externas (como StarkBank), validação segura de webhooks, agendamentos automáticos e deploy seguro em ambientes cloud.
 
